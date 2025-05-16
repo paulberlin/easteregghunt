@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %} - Willkommen{% endblock %}
+
+{% block content %}
+
+<h1>{{egg.name}}</h1>
+
+<p>{{egg.description}}</p>
+
+{% if new %}
+<p>Du hast ein Neues Ei gefunden!</p>
+{% endif %}
+
+<p>Dein Fortschritt: Du hast {{eggsCompletion}} von {{eggsAmount}} virtuellen Eiern gefunden!</p>
+
+{% if eggsCompletion == eggsAmmount  %}
+<p>Yippie! Du hast alle Eier gefunden!</p>
+{% endif %}
+
+<a href="{% url 'start' egghunt.slug %}">Zurück zur Übersicht</a>
+
+{% endblock %}

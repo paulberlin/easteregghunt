@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %} - Willkommen{% endblock %}
+
+{% block content %}
+<h1>Übersicht</h1>
+
+<p>Folgende Eiersuchen gibt es:</p>
+<ul>
+{% for egghunt in egghunts %}
+<li><a href="{% url 'overview_details' egghunt.slug %}">{{ egghunt.name }}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock %}

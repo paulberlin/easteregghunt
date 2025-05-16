@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %} - Willkommen{% endblock %}
+
+{% block content %}
+<h1>{{egghunt.name}}</h1>
+
+<p>{{egghunt.description}}</p>
+
+
+<ul>
+{% for egg in eggs %}
+<li>{{ egg.name }}; 
+{% if egg.how_often > 0 %}
+wurde schon gefunden von:
+{% for sc in egg.completions.all %}
+  {{ sc.person }}{% if not forloop.last %}, {% endif %}
+{% endfor %}
+{% else %}
+wurde noch nicht gefunden
+{% endif %}
+</li>
+{% endfor %}
+</ul>
+
+<h2>Wer führt?</h2>
+<ul>
+{% for eggCompletion in leaderboard %}
+<li>
+  {{ eggCompletion.person__username }} mit 
+  {% if eggCompletion.total == 1 %}einem gefundenen Ei
+  {% else %}{{ eggCompletion.total }} gefundenen Eiern{% endif %}
+</li>
+{% endfor %}
+</ul>
+
+<p>Hier ist der QR code um das Spiel zu starten:<br>
+<img src="https://api.qrserver.com/v1/create-qr-code/?ecc=H&data={{egghunt.encoded_link}}">
+</p>
+
+
+{% endblock %}

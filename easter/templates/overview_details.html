@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %} - Willkommen{% endblock %}
+
+{% block content %}
+
+<h1>Übersicht</h1>
+
+<p>Hier ist der QR code um das Spiel zu starten:<br>
+<img src="https://api.qrserver.com/v1/create-qr-code/?ecc=H&data={{egghunt.encoded_link}}">
+</p>
+
+<br>
+Bei der Eiersuche <em>{{ egghunt}}</em> gibt es diese Eier:
+
+<table>
+<tr><th>Ei</th><th>Finder</th><th>QR Code</th></tr>
+{% for egg in eggs %}
+<tr valign="center"><td>{{ egg }}</td><td>{{egg.how_often}}</td><td>
+<img src="https://api.qrserver.com/v1/create-qr-code/?ecc=H&data={{egg.encoded_link}}">
+</td></tr>
+{% endfor %}
+</table>
+
+{% if user.is_superuser %}
+
+<a href="#" onclick="document.getElementById('dialog').showModal()">Finder Fortschritt löschen</a>
+<dialog id="dialog">
+<p>Bitte bestätige das Löschen vom Fortschritt bei <em>{{ egghunt.name }}</em><br>
+<a class="button" href="{% url 'overview_details_clear' egghunt.slug %}">Fortschritt löschen</a>
+<br>
+<a href="#" onclick="document.getElementById('dialog').close()">Doch nicht</a>
+</dialog>
+
+{% endif %}
+
+{% endblock %}

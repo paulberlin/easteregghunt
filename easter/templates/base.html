@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/simple.min.css">
+    <title>Ostereiersuche{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/static/custom.css">
+</head>
+<body>
+<header>
+{% if user.is_authenticated %}
+  Hi {{ user.username }}, willkommen bei der virtuellen Ostereiersuche{% if egghunt %} {{egghunt.name}}{% endif %}!
+{% else %}
+  Hi, willkommen bei der virtuellen Ostereiersuche!
+{% endif %}
+</header>
+
+<main>
+
+<img align="left" src="/static/egg.png" width="100" alt="Logo"/>
+{% block content %}Welcome to Easter Egg Hunter.{% endblock %}
+
+</main>
+
+<footer>
+{% if user.is_authenticated %}
+<p><form action="{% url 'logout' %}" method="post" id="logout">
+  {% csrf_token %}
+<input type="submit" value="Abmelden">
+</form></p>
+{% endif %}
+<p>&copy; Paul Führing</p>
+</footer>
+</body>
+</html>
